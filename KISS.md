@@ -1,13 +1,15 @@
 # The Architecture of the LISA Science Analysis
 
-**Final report** for a Keck Institute for Space Studies workshop, January 16--19, 2018
+A Keck Institute for Space Studies workshop, January 16--19, 2018
+
+**Final report**, January 2019 
 
 * Rachel Akeson - California Institute of Technology
 * Anne Archibald - Universiteit van Amsterdam
 * Stanislav Babak - Université Paris Diderot
 * Katelyn Breivik - Northwestern University
 * C. Titus Brown - University of California, Davis
-* Alvin Chua - Jet Propulsion Laboratory
+* **Alvin Chua** (scientific secretary) - Jet Propulsion Laboratory
 * Neil Cornish - Montana State University
 * Curt Cutler - Jet Propulsion Laboratory
 * Scott Davidoff - Jet Propulsion Laboratory
@@ -25,9 +27,9 @@
 * Mark Scheel - California Institute of Technology
 * Deirdre Shoemaker - Georgia Institute of Technology
 * Stephen Taylor - California Institute of Technology
-* Saul Teukolsky (co-organizer) - California Institute of Technology
+* **Saul Teukolsky** (co-organizer) - California Institute of Technology
 * Massimo Tinto - University of California, San Diego
-* Michele Vallisneri (co-organizer) - Jet Propulsion Laboratory
+* **Michele Vallisneri** (co-organizer) - Jet Propulsion Laboratory
 * Vijay Varma - California Institute of Technology
 * Alberto Vecchio - University of Birmingham
 
@@ -121,6 +123,8 @@ For instance, if the reference waveforms are provided by long(er) numerical-rela
 * make sure the analysis is sufficiently general---we should be able to apply the same methods to all waveform families using compatible definitions of intrinsic errors;
 * perform the study up to the highest expected signal-to-noise ratios (for binary black-hole coalescences, $10^4$).
 
+![Parameter distributions of current NR-simulation catalogs. Credit. P. Kumar](figs/nr.png)
+
 Once accuracy requirements are understood, the modeling community can set out to fulfill them. In the case of **numerical relativity**, it is unclear that current paradigms (e.g., domain-based parallelism) will suffice, even when coupled with the continued growth of computing power. Indeed, the movement toward sharing power among many compute cores raises many problems that limit performance: communication bandwidth and latency, memory contention, synchronization bottlenecks.
 
 Recent efforts to reformulate the numerical solution of Einstein's equation in terms of **task-based parallelism** [@10.1016/j.jcp.2016.12.059] aim to address these limits, dividing computation into tasks within a dependency tree. The tasks correspond (roughly) to evaluating the functions required to advance the evolution equations; the parameters needed by the functions define their mutual dependencies. A smart scheduler assigns tasks that are ready to compute cores, managing asynchronous information transfer, and (crucially) handling load balancing and *task stealing*.
@@ -130,16 +134,15 @@ It may be possible to improve the *status quo* for other aspects of NR modeling;
 
 We would hope that the eventual modeling and representation errors would be so small that they can simply be ignored in data analysis. If this is not the case, we must formulate a robust method to propagate a characterization of the errors into data-analysis pipelines, where the corresponding degrees of freedom can be treated as nuisance parameters and marginalized over [@10.1103/PhysRevD.93.064001].
 
-Beyond the general schemes outlined above, there are specific considerations to be made for each class of LISA sources. For **massive and stellar-mass black-hole binaries with comparable mass ratios**, we already have banks of numerical-relativity simulations that can provide fiducial injections, although we need more simulations of eccentric binaries; PN waveforms also need to include eccentricity organically. To orient effort in both domains, we need to understand astrophysical expectations for eccentric systems. NR simulations are currently able to comfortably handle eccentricity and spin precession, for mass ratios of up to around 1/20 and spin magnitudes of up to around 0.8. An extension to higher spins would require improved initial data, while going to more pronounced mass ratios will likely be better achieved through black-hole perturbation theory.
+![A recently developed EMRI surrogate is able to generate fast self-forced inspiral trajectories in milliseconds, but is presently implemented only for the first-order self-force on Schwarzschild. Credit: M. van de Meent & N. Warburton.](figs/nit.png)
 
-![Parameter distributions of current NR-simulation catalogs. Credit. P. Kumar](figs/nr.png)
+<!-- [@10.1088/1361-6382/aac8ce] not allowed in figure environment -->
+
+Beyond the general schemes outlined above, there are specific considerations to be made for each class of LISA sources. For **massive and stellar-mass black-hole binaries with comparable mass ratios**, we already have banks of numerical-relativity simulations that can provide fiducial injections, although we need more simulations of eccentric binaries; PN waveforms also need to include eccentricity organically. To orient effort in both domains, we need to understand astrophysical expectations for eccentric systems. NR simulations are currently able to comfortably handle eccentricity and spin precession, for mass ratios of up to around 1/20 and spin magnitudes of up to around 0.8. An extension to higher spins would require improved initial data, while going to more pronounced mass ratios will likely be better achieved through black-hole perturbation theory.
 
 **Intermediate--mass-ratio black-hole binaries** (IMRIs) are very problematic already at the modeling stage. They would require pushing perturbative analytical expansions to third order in the mass ratio -- very difficult -- although Le Tiec's "$q$ to $\nu$" trick may help [@10.1103/PhysRevD.88.124027]. At worst, we may need to investigate new perturbative schemes for the selfforce. Looking at currently available models and simulations, we could test EOB waveforms at high mass ratio with numerical-relativity runs, which however would be very expensive.
 
 The modeling of **extreme--mass-ratio inspirals** (EMRIs) for parameter estimation requires up to second-order self-force corrections to a Kerr geodesic orbit, or specifically their average dissipative effects. (The complete second-order contribution would be useful for IMRIs.) Waveforms produced directly from self-force calculations would be too computationally expensive for use in parameter estimation algorithms, and must be approximated by a surrogate with very minimal loss of accuracy. The fast near-identity-transform method of van de Meent and Warburton [@10.1088/1361-6382/aac8ce] is promising for this purpose, although it depends on the construction of an accurate interpolant for the self-force when the calculations become available. For EMRI detection, fast **kludge waveforms** [@10.1103/PhysRevD.69.082005] [@10.1103/PhysRevD.75.024005] [@10.1088/0264-9381/32/23/232002] that utilize various approximations have been shown to be adequate [@10.1103/PhysRevD.96.044005], but the presently available ones should still be improved further in terms of both their speed and accuracy.
-
-![A recently developed EMRI surrogate is able to generate fast self-forced inspiral trajectories in milliseconds, but is presently implemented only for the first-order self-force on Schwarzschild. Credit: M. van de Meent & N. Warburton.](figs/nit.png)
-<!-- [@10.1088/1361-6382/aac8ce] not allowed in figure environment -->
 
 ### LISA makes catalogs!
 
@@ -191,6 +194,7 @@ Furthermore, even the number of sources is unknown; this calls for *transdimensi
 The basic building block of GW analysis is the likelihood/sampling distribution of instrument noise, which is evaluated most efficiently in a diagonal basis. For stationary Gaussian noise, the frequency domain provides such a representation. However LISA instrument noise will be nonstationary because of instrument effects, and also because of the "seasonal" confusion background from the Galaxy.
 
 ![The "full enchilada" of signals in LISA data. Credit: M. Vallisneri](figs/enchilada.png)
+
 <!-- not allowed in caption [@10.1088/0264-9381/24/19/S18] -->
 
 **Exploiting randomness.** Stochastic methods such as Markov-Chain Monte Carlo (MCMC) [@10.1146/annurev-astro-082214-122339] have long been a workhorse in GW analysis. Applying them to specific families of GW signals is more in the realm of art (or at least craft) than science. The choice of efficient proposals that provide a reliable guide for stochastic exploration. In addition to the basic strategy of local posterior approximation with Fisher-matrix covariance, GW work has successfully employed *ad hoc* steps based on physical symmetries (e.g., jumps between multiple EMRI harmonics), precomputed (and necessarily approximated) global likelihood maps (e.g., an *F*-statistic map for global binaries), *differential evolution* (i.e., using past stochastic history to suggest jumps), and more. Approaches that improve on the basic Metropolis--Hastings exploration algorithm include *parallel tempering* [@10.1103/PhysRevLett.57.2607],[@10.1093/mnras/stv2422], Hamiltonian Monte Carlo [@neal2011mcmc], several variants of nested sampling, and more. Other GW-specific tricks involve the analytical maximization or marginalization of the likelihood, whenever possible.
@@ -314,6 +318,7 @@ Study participant Mahabal described the application of an encoder--decoder CNN t
 Convolutional networks have been applied to the detection and localization of GW signals from LIGO black-hole mergers, in both the time domain [@convwave] and the frequency domain [@10.1103/PhysRevD.97.044039] [@10.1103/PhysRevLett.120.141103]. The analysis spanned simulated LIGO-type signals [@10.1007/s11433-018-9321-7] [@2018arXiv180709787R] [@2018arXiv181106443N] as well as real LIGO data. [@10.1016/j.physletb.2017.12.053] CNNs were also tasked with the classification of transient noise events ("glitches") in LIGO data [@10.1088/1361-6382/aab793] [@10.1103/PhysRevD.97.101501], and with the denoising of LIGO signals within *recurrent autoencoders*. [@2017arXiv171109919S]; [@2019arXiv190100869W]
 
 ![Receiver operating characteristic curves for a neural-network classifier as compared to standard matched-filtering, in the context of LIGO-type detection. Credit: H. Gabbard, et al.](figs/gabbard.png)
+
 <!-- [@10.1103/PhysRevLett.120.141103] -->
 
 Beyond CNNs, LIGO glitches were tackled with *dictionary learning* [@2018arXiv181103867L], and denoising with dictionary learning [@10.1103/PhysRevD.94.124040] and total-variation methods [@10.1103/PhysRevD.90.084029] [@10.1103/PhysRevD.98.084013]. Finally, study participants Chua, Galley, and Vallisneri have demonstrated the use of DNNs as fast waveform interpolants in a ROM representation, providing benefits such as native parameter estimation and analytic waveform derivatives. [@2018arXiv181105491C]
@@ -336,5 +341,18 @@ The KISS discussion of machine learning (and deep learning especially), raised a
 * S: we should tap into the **large and enthusiastic user/scholar community** flocking to deep learning. If we describe problems well (e.g., on "competition" portals such as Kaggle [@kaggle], or in the LISA Data Challenges themselves) and if we abstract them as much as possible from GW jargon, talented people may be interesting in applying their own methods.
 
 * S (based on presentation by Nvidia GPU software engineer): deep learning is increasingly **driving the development and capabilities of new GPUs**; conversely, the continued increase in computing power in modern computers relies increasingly on the teraflops unleashed by the massively parallel arrays of GPU compute cores. It follows that if GW data analysis is to continue benefiting from Moore's law, it must reformulate its tasks as DL problems, or at least as algorithms that use the same mathematical primitives. (In fact, Google, Apple, and other large players are now building very fast and efficient *tensor processing units* that are strictly designed for DNNs. [@googletpu])
+
+### Live data products
+
+Or, as Titus Brown would put it, "How to sucker people into doing the right thing by creating a community of practice around open science".
+
+Our technology for packaging code + data together and running it gets better all the time; viz binder and juphub/berkeley
+hook this up to repositories for data investigation; runs proximal to repo
+automatically update notebooks as new data arrives, cut new releases, save to zenodo
+“live papers”
+
+many more ideas here http://ivory.idyll.org/blog/2017-binder-workshop.html
+
+
 
 ## Bibliography
