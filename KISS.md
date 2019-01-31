@@ -176,7 +176,7 @@ NASA's **Kepler** [@kepler] employed the *transit method* to survey our Galactic
 * the full range of products should be defined early to allow for good interfaces and dataflow in processing and archive;
 * project definitions and thresholds should be enforced strictly to avoid confusion (e.g., we should avoid changes in SNR thresholds or object status definitions between groups in project).
 
-![Astronomical observatories that will provide input to LISA science before LISA flies. Credit: ](figs/obs_review.png)
+![Astronomical observatories that will generate LISA-relevant science before LISA flies. Indeed, the search for EM counterparts will largely rely on existing catalogs, so the LISA archive will need interfaces and interoperability with several of them.](figs/obs_review.png)
 
 ## Hard problems
 
@@ -327,48 +327,14 @@ The KISS discussion of machine learning (and deep learning especially), raised a
 
 * S: while deep learning is opaque (and by extension not statistically "pure"), it could provide a **rough map of where to look for signals** in GW searches. The parallel with stochastic methods is interesting: these are used to solve problems that we can specify analytically, but not solve easily; supervised DNNs excel where the desired outcome is clear, but we cannot even formulate a way to get the solution. However, we may still need some reframing of GW problems before we can make headway.
 
-* S: training sets containing GW signals are generated quickly with simulation; *generative networks* may be more appropriate for glitch modeling, where we have limited data.
+* S: training sets containing GW signals are generated quickly with simulation; *generative networks* may be more appropriate for **glitch modeling**, where examples in data are limited.
 
-* S: instead of using machine learning to replace classical solutions to the big problems of GW data analysis (detection, parameter estimation, data quality), we should go over the pieces of pipelines, and figure out which could be made faster by replacing it with a fast (but expensive to train) black box. For instance, likelihoods can be *emulated*; [10.1111/j.1365-2966.2011.20288.x] or as suggested above, the control systems that govern the solution of NR could benefit from a steady automated hand.
+* S: instead of using machine learning to replace classical solutions to the big problems of GW data analysis (detection, parameter estimation, data quality), we should go over the **pieces of pipelines**, and figure out which could be made faster by replacing it with a fast (but expensive to train) black box. For instance, likelihoods (given the data) can be learned and *emulated*; [10.1111/j.1365-2966.2011.20288.x] the maximum-likelihood parameters could be learned given loads of noisy datasets; as suggested above, the control systems that govern the solution of NR could benefit from a steady automated hand.
 
-* S: we should tap into the large and enthusiastic user/scholar community flocking to deep learning. If we describe problems well (e.g., on "competition" portals such as Kaggle [@kaggle]), and abstract them as much as possible from GW jargon, talented people may be interesting in applying their own methods.
+* S: deep learning may be applicable to the multimessenger problem of correlating LISA catalog entries with other EM catalogs.
 
-* S (based on presentation by Nvidia GPU software engineer): deep learning is increasingly driving the development and capabilities of new GPU generations; conversely, the continued increase in computing power in modern computers relies increasingly on the teraflops unleashed by the massively parallel arrays of GPU compute cores. It follows that if GW data analysis is to continue benefiting from Moore's law, it must reformulate its tasks as DL problems, or at least as algorithms that use the same mathematical primitives. (In fact, Google, Apple, and other large players are now building very fast and efficient *tensor processing units* that are strictly designed for DNNs. [@googletpu])
+* S: we should tap into the **large and enthusiastic user/scholar community** flocking to deep learning. If we describe problems well (e.g., on "competition" portals such as Kaggle [@kaggle], or in the LISA Data Challenges themselves) and if we abstract them as much as possible from GW jargon, talented people may be interesting in applying their own methods.
 
-### Other talking points from workshop group sessions
+* S (based on presentation by Nvidia GPU software engineer): deep learning is increasingly **driving the development and capabilities of new GPUs**; conversely, the continued increase in computing power in modern computers relies increasingly on the teraflops unleashed by the massively parallel arrays of GPU compute cores. It follows that if GW data analysis is to continue benefiting from Moore's law, it must reformulate its tasks as DL problems, or at least as algorithms that use the same mathematical primitives. (In fact, Google, Apple, and other large players are now building very fast and efficient *tensor processing units* that are strictly designed for DNNs. [@googletpu])
 
-Notes from breakout session in Oort Cloud - new ideas
-
-- EM side: can we use archival data from the EM community to look in LISA for sources. And also vice versa.
-    
-- large scale data-mining
-    
-- deep learning correlations for EM-GW
-    
-- Denial of service attack on theorists - you take down a website by having many computers visit website. Same thing with data generation. E.G. we found these 10 signals in these 10 periods and some of them are null. See if the theorists pick out the fake parts
-    
--   Improving DQ
-    
--   Better input for MCMC, using neural nets for feature extraction. Something similar has been done for multi-nests. Have so far looked at toy problems.
-      
--   Generate enough waveforms (loads), would we be able to make progress on the inverse problem? Use ML to use the parameters to come out with the waveform.
-    
--   PE exploration. Whether cloud services can be used to distribute workload. Use ROMs and just grid based brute force exploration with loads of computers.
-    
--   Kaggle competition - online platform were you have competitions involving datasets with answers to them. Train ML on the dataset and see how you do. Submit answers/algorithms. Many different sites where we can host something like this.
-    
--   How we use astrophysical priors for NR and analysis - to find out where the theorists should spend most of their time  
-
-Useful to have the astrophysical modelling, and plug in to the inverse problem so you are agnostics. Go from LISA data to go back to formation channel.
-
-Going to have 1000s of waveforms for LISA. Vector basis and randomly choose coefficients to find the best match. Need to solve the inverse problem to do the PE. Detection is probably ‘easy’ but won’t have the parameters easily. Want to go from wiggle in the data to figuring out waveform rather than matching the waveform to the data.
-
-*) Can create simulated LISA data based on EM catalogues
-
-*) Create targeted GW search for something from Gaia etc archives
-
-*) Find a way to map probabilities / joint probabilities - say found something in EM to 80% but GW to 20% - would you believe it?
-
-
-Biblio
-
+## Bibliography
