@@ -108,7 +108,7 @@ In space-project jargon, **what is the modeling and templating error budget for 
 * Are post-Newtonian (PN), effective-one-body (EOB), and numerical-relativistic (NR) binary models sufficiently accurate to extract all science from loud massive black-hole binary inspirals? E.g, are numerical-relativity simulations sufficient to capture the fine details of mergers? How *long* do they need so that the "handoff" from PN/EOB to numerical is sufficiently accurate?
 * What about the model representations as phenomenological (Phenom) or reduced-order-modeling (ROM) templates? Can these be improved at the cost of more computation, whether *online* during parameter estimation or in a preliminary stage?
 
-![The reduced-order-modeling approach involves the offline construction and interpolation of a reduced-basis for the signal space, in order to greatly accelerate the online use of templates for detection and parameter estimation. Credit: C. Galley & A. Chua](rom.png)
+![The reduced-order-modeling approach involves the offline construction and interpolation of a reduced-basis for the signal space, in order to greatly accelerate the online use of templates for detection and parameter estimation. Credit: C. Galley & A. Chua](figs/rom.png)
 
 The other important consideration is that we should concentrate on the specific **region of source parameter space to which LISA will be sensitive**: for instance, significant binary eccentricity and precession are challenging to numerical simulations, and they will be more relevant to LISA than they are to ground-based detections.
 
@@ -132,13 +132,14 @@ We would hope that the eventual modeling and representation errors would be so s
 
 Beyond the general schemes outlined above, there are specific considerations to be made for each class of LISA sources. For **massive and stellar-mass black-hole binaries with comparable mass ratios**, we already have banks of numerical-relativity simulations that can provide fiducial injections, although we need more simulations of eccentric binaries; PN waveforms also need to include eccentricity organically. To orient effort in both domains, we need to understand astrophysical expectations for eccentric systems. NR simulations are currently able to comfortably handle eccentricity and spin precession, for mass ratios of up to around 1/20 and spin magnitudes of up to around 0.8. An extension to higher spins would require improved initial data, while going to more pronounced mass ratios will likely be better achieved through black-hole perturbation theory.
 
-![Parameter distributions of current NR-simulation catalogs. Credit. P. Kumar](nr.png)
+![Parameter distributions of current NR-simulation catalogs. Credit. P. Kumar](figs/nr.png)
 
 **Intermediate--mass-ratio black-hole binaries** (IMRIs) are very problematic already at the modeling stage. They would require pushing perturbative analytical expansions to third order in the mass ratio -- very difficult -- although Le Tiec's "$q$ to $\nu$" trick may help [@10.1103/PhysRevD.88.124027]. At worst, we may need to investigate new perturbative schemes for the selfforce. Looking at currently available models and simulations, we could test EOB waveforms at high mass ratio with numerical-relativity runs, which however would be very expensive.
 
 The modeling of **extreme--mass-ratio inspirals** (EMRIs) for parameter estimation requires up to second-order self-force corrections to a Kerr geodesic orbit, or specifically their average dissipative effects. (The complete second-order contribution would be useful for IMRIs.) Waveforms produced directly from self-force calculations would be too computationally expensive for use in parameter estimation algorithms, and must be approximated by a surrogate with very minimal loss of accuracy. The fast near-identity-transform method of van de Meent and Warburton [@10.1088/1361-6382/aac8ce] is promising for this purpose, although it depends on the construction of an accurate interpolant for the self-force when the calculations become available. For EMRI detection, fast **kludge waveforms** [@10.1103/PhysRevD.69.082005] [@10.1103/PhysRevD.75.024005] [@10.1088/0264-9381/32/23/232002] that utilize various approximations have been shown to be adequate [@10.1103/PhysRevD.96.044005], but the presently available ones should still be improved further in terms of both their speed and accuracy.
 
-![A recently developed EMRI surrogate is able to generate fast self-forced inspiral trajectories in milliseconds, but is presently implemented only for the first-order self-force on Schwarzschild. Credit: M. van de Meent & N. Warburton [@10.1088/1361-6382/aac8ce]](nit.png)
+![A recently developed EMRI surrogate is able to generate fast self-forced inspiral trajectories in milliseconds, but is presently implemented only for the first-order self-force on Schwarzschild. Credit: M. van de Meent & N. Warburton.](figs/nit.png)
+<!-- [@10.1088/1361-6382/aac8ce] not allowed in figure environment -->
 
 ### LISA makes catalogs!
 
@@ -175,7 +176,7 @@ NASA's **Kepler** [@kepler] employed the *transit method* to survey our Galactic
 * the full range of products should be defined early to allow for good interfaces and dataflow in processing and archive;
 * project definitions and thresholds should be enforced strictly to avoid confusion (e.g., we should avoid changes in SNR thresholds or object status definitions between groups in project).
 
-![Astronomical observatories that will provide input to LISA science before LISA flies. Credit: ](obs_review.png)
+![Astronomical observatories that will provide input to LISA science before LISA flies. Credit: ](figs/obs_review.png)
 
 ## Hard problems
 
@@ -189,7 +190,8 @@ Furthermore, even the number of sources is unknown; this calls for *transdimensi
 
 The basic building block of GW analysis is the likelihood/sampling distribution of instrument noise, which is evaluated most efficiently in a diagonal basis. For stationary Gaussian noise, the frequency domain provides such a representation. However LISA instrument noise will be nonstationary because of instrument effects, and also because of the "seasonal" confusion background from the Galaxy.
 
-![The "full enchilada" of signals in LISA data. Credit: K. Arnaud, et al. [@10.1088/0264-9381/24/19/S18]](enchilada.png)
+![The "full enchilada" of signals in LISA data. Credit: M. Vallisneri](figs/enchilada.png)
+<!-- not allowed in caption [@10.1088/0264-9381/24/19/S18] -->
 
 **Exploiting randomness.** Stochastic methods such as Markov-Chain Monte Carlo (MCMC) [@10.1146/annurev-astro-082214-122339] have long been a workhorse in GW analysis. Applying them to specific families of GW signals is more in the realm of art (or at least craft) than science. The choice of efficient proposals that provide a reliable guide for stochastic exploration. In addition to the basic strategy of local posterior approximation with Fisher-matrix covariance, GW work has successfully employed *ad hoc* steps based on physical symmetries (e.g., jumps between multiple EMRI harmonics), precomputed (and necessarily approximated) global likelihood maps (e.g., an *F*-statistic map for global binaries), *differential evolution* (i.e., using past stochastic history to suggest jumps), and more. Approaches that improve on the basic Metropolis--Hastings exploration algorithm include *parallel tempering* [@10.1103/PhysRevLett.57.2607],[@10.1093/mnras/stv2422], Hamiltonian Monte Carlo [@neal2011mcmc], several variants of nested sampling, and more. Other GW-specific tricks involve the analytical maximization or marginalization of the likelihood, whenever possible.
 
@@ -213,7 +215,7 @@ After surveying this landscape, study participants identified a list of **key ne
 * The quality of data and prevalence of noise will also vary naturally across time. Should our analysis proceed from the quietest times?
 * How do we **evaluate and visualize** the **performance** (and correctness!) of likelihood exploration? (E.g., how do we know that we are exploring all relevant modes?)
 
-![A schematic representation of the global-fit algorithm. Credit: N. Cornish & C. Cutler](globalfit.png)
+![A schematic representation of the global-fit algorithm. Credit: N. Cornish & C. Cutler](figs/globalfit.png)
 
 Beyond these well-specified areas of investigations, study participants brainstormed several more open **ideas to explore**:
 
@@ -311,7 +313,8 @@ Study participant Mahabal described the application of an encoder--decoder CNN t
 
 Convolutional networks have been applied to the detection and localization of GW signals from LIGO black-hole mergers, in both the time domain [@convwave] and the frequency domain [@10.1103/PhysRevD.97.044039] [@10.1103/PhysRevLett.120.141103]. The analysis spanned simulated LIGO-type signals [@10.1007/s11433-018-9321-7] [@2018arXiv180709787R] [@2018arXiv181106443N] as well as real LIGO data. [@10.1016/j.physletb.2017.12.053] CNNs were also tasked with the classification of transient noise events ("glitches") in LIGO data [@10.1088/1361-6382/aab793] [@10.1103/PhysRevD.97.101501], and with the denoising of LIGO signals within *recurrent autoencoders*. [@2017arXiv171109919S]; [@2019arXiv190100869W]
 
-![Receiver operating characteristic curves for a neural-network classifier as compared to standard matched-filtering, in the context of LIGO-type detection. Credit: H. Gabbard, et al. [@10.1103/PhysRevLett.120.141103]](gabbard.png)
+![Receiver operating characteristic curves for a neural-network classifier as compared to standard matched-filtering, in the context of LIGO-type detection. Credit: H. Gabbard, et al.](figs/gabbard.png)
+<!-- [@10.1103/PhysRevLett.120.141103] -->
 
 Beyond CNNs, LIGO glitches were tackled with *dictionary learning* [@2018arXiv181103867L], and denoising with dictionary learning [@10.1103/PhysRevD.94.124040] and total-variation methods [@10.1103/PhysRevD.90.084029] [@10.1103/PhysRevD.98.084013]. Finally, study participants Chua, Galley, and Vallisneri have demonstrated the use of DNNs as fast waveform interpolants in a ROM representation, providing benefits such as native parameter estimation and analytic waveform derivatives. [@2018arXiv181105491C]
 (**Obviously the references do not all fit in the margin; I will shorten them somehow**.)
