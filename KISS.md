@@ -111,7 +111,7 @@ In space-project jargon, **what is the modeling and templating error budget for 
 * Are post-Newtonian (PN), effective-one-body (EOB), and numerical-relativistic (NR) binary models sufficiently accurate to extract all science from loud massive black-hole binary inspirals? E.g, are numerical-relativity simulations sufficient to capture the fine details of mergers? How *long* do they need so that the "handoff" from PN/EOB to numerical is sufficiently accurate?
 * What about the model representations as phenomenological (Phenom) or reduced-order-modeling (ROM) templates? Can these be improved at the cost of more computation, whether *online* during parameter estimation or in a preliminary stage?
 
-![The reduced-order-modeling approach involves the offline construction and interpolation of a reduced-basis for the signal space, in order to greatly accelerate the online use of templates for detection and parameter estimation. Credit: C. Galley & A. Chua](figs/rom.png)
+![The reduced-order-modeling approach involves the offline construction and interpolation of a reduced basis for the signal space, in order to greatly accelerate the online use of templates for detection and parameter estimation. Credit: C. Galley & A. Chua.](figs/rom.png)
 
 The other important consideration is that we should concentrate on the specific **region of source parameter space to which LISA will be sensitive**: for instance, significant binary eccentricity and precession are challenging to numerical simulations, and they will be more relevant to LISA than they are to ground-based detections.
 
@@ -124,7 +124,7 @@ For instance, if the reference waveforms are provided by long(er) numerical-rela
 * make sure the analysis is sufficiently general---we should be able to apply the same methods to all waveform families using compatible definitions of intrinsic errors;
 * perform the study up to the highest expected signal-to-noise ratios (for binary black-hole coalescences, $10^4$).
 
-![Parameter distributions of current NR-simulation catalogs. Credit. P. Kumar](figs/nr.png)
+![The current waveform catalogs for modern NR codes sample parameter space in different ways, but always sparsely. Credit: P. Kumar.](figs/nr.png)
 
 Once accuracy requirements are understood, the modeling community can set out to fulfill them. In the case of **numerical relativity**, it is unclear that current paradigms (e.g., domain-based parallelism) will suffice, even when coupled with the continued growth of computing power. Indeed, the movement toward sharing power among many compute cores raises many problems that limit performance: communication bandwidth and latency, memory contention, synchronization bottlenecks.
 
@@ -145,7 +145,7 @@ Beyond the general schemes outlined above, there are specific considerations to 
 
 The modeling of **extreme--mass-ratio inspirals** (EMRIs) for parameter estimation requires up to second-order self-force corrections to a Kerr geodesic orbit, or specifically their average dissipative effects. (The complete second-order contribution would be useful for IMRIs.) Waveforms produced directly from self-force calculations would be too computationally expensive for use in parameter estimation algorithms, and must be approximated by a surrogate with very minimal loss of accuracy. The fast near-identity-transform method of van de Meent and Warburton [@10.1088/1361-6382/aac8ce] is promising for this purpose, although it depends on the construction of an accurate interpolant for the self-force when the calculations become available. For EMRI detection, fast **kludge waveforms** [@10.1103/PhysRevD.69.082005] [@10.1103/PhysRevD.75.024005] [@10.1088/0264-9381/32/23/232002] that utilize various approximations have been shown to be adequate [@10.1103/PhysRevD.96.044005], but the presently available ones should still be improved further in terms of both their speed and accuracy.
 
-### LISA hearts astronomers
+### LISA hearts astronomy
 
 The LISA observations will seed many studies, investigations, and followups across the astronomical community. Because the LISA archive will be the first of its kind (notwithstanding many similarities with source catalogs for mature ground-based GW detectors) it is important to **reach out to astronomers** to teach them the peculiarities of LISA data, and to learn about their requirements and use cases. KISS study participants outlined several avenues to do so, including holding regular workshops at professional conferences; providing worked-out data-analysis examples (e.g., as computational notebooks, see below); structuring the LISA archive to accept contributions from outside the project. 
 This outreach could extend to the public, through a carefully designed *citizen science project* similar to Gravity Spy [@gravityspy].
@@ -167,20 +167,37 @@ Thus, the LISA data archive will need to fulfill **many different use cases** in
 * **Multi-messenger observations of massive black hole mergers.** Combined detections of the GW and EM signals powered by merging MBH binaries can significantly enhance the scientific return of LISA. EM signals provide improved localization and distance estimates, as well as information about the environment of the merging MBHs, thus opening new ways to use LISA detections in cosmology, astrophysics, and for tests of general relativity. Given the large uncertainties in the sky localization of LISA events, this will only be possible if the EM signals are sufficiently well understood to limit the rate of false positives in the LISA detection volume. The most promising EM counterparts to merging MBHs are powered by the accretion of gas onto the MBHs, both before and after merger. Our theoretical understanding of that process remains limited, in part due to the difficulty involved in simulating the many different time scales relevant to this problem, and in part due to large uncertainties regarding the feeding mechanism of MBH binaries and the large scale structure of the accretion flow.
 **Required data products**: Prompt alerts provided by LISA to EM observers, with tight sky localization.
 
-The design of the LISA archive (see "Designing the LISA catalog" below for a more GW-centric discussion) can benefit from the experience of releasing the data of ground-based detectors, and of survey space missions such as Kepler. The **LIGO--Virgo Collaboration** currently releases prompt event alerts, limited data stretches (4,096 s) around events published in refereed journals, and full strain datasets two years after the end of an observing run (although this delay may be shortened in the future).
-The **Gravitational Wave Open Science Center** [@losc] (formerly LIGO Open Science Center) hosts public datasets along with tutorials and tools to aid data use.
+Archives are a crucial part of astronomy! They preserve data gathered with tremendous expense of treasure and talent, and they enable impactful archival science long after the end of a mission or survey. Study participant Rachel Akeson emphasized that easily searchable archival datasets facilitate innovative uses, especially where databases combine information from multiple missions and facilities. [@ned] Archives contain:
+
+* **Raw and processed data from a mission**. For LISA, data products have been tentatively assigned to four levels---I: raw interferometric measurements and auxiliary data; II: time-delay-interferometry observables (TDI, the closest LISA comes to GW strain) and data-quality indicators; III: individual-source parameter estimates and partially source-subtracted observables; IV: full catalogs. Transient event alerts (e.g., for imminent massive black-hole mergers) would fall between III and IV.
+* **Other mission data**, such as spacecraft data that may not seem immediately relevant, [^spitzer] metadata characterizing pipeline output for completeness, reliability, or simulated data of various kinds.
+* **High-level derived products and associations from the archive**. For LISA, premiere products would include cross-identifications with EM objects from other missions and observatories.
+* **High-level data products from the community**. For LISA, reanalyses of individual sources or revisitings of the global solution, as well as independent associations with other databases, for which good interfaces will be crucial. Standardization and reliability of community inputs is often an issue.
+
+[^spitzer]: For instance, Spitzer developed an exoplanet transit mode eight years after launch, using pointing data not originally used in processing pipeline. See [@Beichman2017]
+
+The level of archive support varies greatly, and for large space missions it normally includes dedicated user interfaces, bespoke tools and visualization, and helpdesk support. Datasets can be updated continuously or episodically, when costly or delicate processing is needed. While astronomy is not (or not yet) "Big Data" by Silicon Valley standards, volume still poses issues for retrieval, searching, and processing. The standard mantra is now *bring the computation to the data*, with the usual qualifier *in the cloud*. Akeson emphasized **careful planning and organization** early on, especially for large datasets that will then be hard to move and change, or for capabilities that may be precluded by cost if pursued later. She praised task-specific optimization and reduction of overheads, and warned against complexity, since "things that are complicated when they are small explode on you when they grow big."
+
+Ultimately, the design of the LISA archive will reflect the peculiarities of a space-based GW observatory (see "Designing the LISA catalog" below) and the use cases collected from the astronomical community. Nevertheless, it should reuse established solutions where available, and it can benefit from the experience of releasing the data of ground-based detectors and of survey space missions such as Fermi and Kepler.
+
+The **LIGO--Virgo Collaboration** currently releases prompt event alerts, limited data stretches (4,096 s) around events published in refereed journals, and full strain datasets two years after the end of an observing run (although this delay may be shortened in the future). The **Gravitational Wave Open Science Center** [@losc] (formerly LIGO Open Science Center) hosts public datasets along with tutorials and tools to aid data use.
 It recently released the first *catalog of detected GW transients* [@2018arXiv181112907T] [@10.7935/82H3-HH23], as well as *posterior samples* for selected events.  Some lessons applicable to LISA are that:
 
 * we should carefully consider the content and format of data products ahead of time (and possibly release mock examples), so that future users have time to prepare downstream tools;
 * we should think carefully about giving guidance about the interpretation of the data. In the case of LIGO--Virgo, strain-data releases were never meant to allow the reproduction of GW searches, but were nevertheless used in that way, resulting in almost certainly spurious claims. [@10.1088/1475-7516/2017/08/013]
 
-NASA's **Kepler** [@kepler] employed the *transit method* to survey our Galactic neighborhood and discover hundreds of Earth-size and smaller planets in or near the habitable zone, characterizing the fraction of stars that might have such planets. The statistical nature of Kepler's goals, its increase in sensitivity with longer baselines, and its resurrection in a different operating mode after a hardware failure resulted in **multiple versions and multiple kinds of astronomical data catalogs** (see a full list [@keplerdata]). Some lessons applicable to LISA are that:
+NASA's **Fermi** [@fermi] is a sky-scanning telescope with public data (*photons*!) and software. Photons are posted as they are detected, but then are revised with much better characterization in successive data releases. These releases include updated calibration data and software tools. In addition, Fermi publishes catalogs describing confirmed point sources with spectral model fits, plus a few diffuse sources. Typical users who wish to study a source use all "nearby" photons together with calibration and catalogs, and perform a **multisource spectral fit** (with a Fermi-provided tool) to account for the possibility that each photon may come from the target, or from the wings of the point spread function of other nearby sources. This kind of entanglement has obvious parallels to LISA's confusion problem.
+
+* One lesson is that even simple tasks, such as computing light curves, require **reprocessing mission data with sophisticated mission-provided software**. Furthermore, users need to exploit higher-level products (the catalogs) to make sense of lower-level ones (the photons). This will definitely be the case for certain LISA investigations, such as tests of general relativity on loud massive black-hole inspirals, where fine waveform detail will be correlated with the parameters of other overlapping signals.
+* For LISA, a (figurative) **spectrum of increasingly informative catalogs** may address such correlation problems. Some users would be happy with a basic catalog listing maximum-likelihood source parameters plus uncertainties, for sources that pass some quantitative false-alarm criterion. At the next level, sources could list parameter correlations in multivariate normal form. Next, catalog entries could list substantial correlations with other sources, which may be shaky for the weakest signals. Finally, more elaborate single-source and joint posteriors would be specified wherever useful, or possibly on the basis of user requests.
+
+NASA's **Kepler** [@kepler] employed the *transit method* to survey our Galactic neighborhood and discover hundreds of Earth-size and smaller planets in or near the habitable zone, characterizing the fraction of stars that might have such planets. The statistical nature of Kepler's goals, its increase in sensitivity with longer baselines, and its resurrection in a different operating mode after a hardware failure resulted in **multiple versions and multiple kinds** of astronomical data products and catalogs [@keplerdata] covering many different use cases. Some lessons applicable to LISA are that:
 
 * the astronomical community can deal with multiple versions of object catalogs and with objects changing status between catalogs (or even appearing and disappearing), but consistent versioning is paramount;
 * the full range of products should be defined early to allow for good interfaces and dataflow in processing and archive;
 * project definitions and thresholds should be enforced strictly to avoid confusion (e.g., we should avoid changes in SNR thresholds or object status definitions between groups in project).
 
-![Astronomical observatories that will generate LISA-relevant science before LISA flies. Indeed, the search for EM counterparts will largely rely on existing catalogs, so the LISA archive will need interfaces and interoperability with several of them.](figs/obs_review.png)
+![Astronomical observatories that will generate LISA-relevant science before LISA flies. The search for EM counterparts will largely rely on existing catalogs, so the LISA archive will need interfaces and interoperability with several of them.](figs/obs_review.png)
 
 ## Hard problems
 
@@ -194,7 +211,7 @@ Furthermore, even the number of sources is unknown; this calls for *transdimensi
 
 The basic building block of GW analysis is the likelihood/sampling distribution of instrument noise, which is evaluated most efficiently in a diagonal basis. For stationary Gaussian noise, the frequency domain provides such a representation. However LISA instrument noise will be nonstationary because of instrument effects, and also because of the "seasonal" confusion background from the Galaxy.
 
-![The "full enchilada" of signals in LISA data. Credit: M. Vallisneri](figs/enchilada.png)
+![The "full enchilada" dataset from the Mock LISA Data Challenges exemplifies the LISA confusion problem, albeit with great understatement in the actual number of sources. Credit: M. Vallisneri](figs/enchilada.png)
 
 <!-- not allowed in caption [@10.1088/0264-9381/24/19/S18] -->
 
@@ -220,7 +237,7 @@ After surveying this landscape, study participants identified a list of **key ne
 * The quality of data and prevalence of noise will also vary naturally across time. Should our analysis proceed from the quietest times?
 * How do we **evaluate and visualize** the **performance** (and correctness!) of likelihood exploration? (E.g., how do we know that we are exploring all relevant modes?)
 
-![A schematic representation of the global-fit algorithm. Credit: N. Cornish & C. Cutler](figs/globalfit.png)
+![Schematic representation of a possible global-fit algorithm. Source-specific codes update the number and parameters of sources in each class, then pass on the resulting residuals. Once convergence is achieved, this iteration would sample the global parameter distribution. Credit: N. Cornish and C. Cutler](figs/globalfit.png)
 
 Beyond these well-specified areas of investigations, study participants brainstormed several more open **ideas to explore**:
 
@@ -292,7 +309,7 @@ All of these have very interesting implications (both scientific and sociologica
 * with no associated features in auxiliary channels (i.e., "green" data quality);
 * a very good way to celebrate the 20th anniversary of GW detection!
 
-The participants further developed a *real-vs-not-real* **checklist** [@gawande2010checklist], which begins by questioning the state of the instrument, then transitions to data analysis. Such a process is formalized well for LIGO. [@10.1088/0264-9381/33/13/134001] [@10.1088/1361-6382/aaaafa]
+The participants further developed a *real-vs-not-real* **checklist** [@gawande2010checklist], which starts out by questioning the state of the instrument, then transitions to data analysis. Such a process is formalized well for LIGO. [@10.1088/0264-9381/33/13/134001] [@10.1088/1361-6382/aaaafa]
 
 1. All spacecraft systems are nominal.
 2. Nothing (too) suspicious is seen in the auxiliary channels.
