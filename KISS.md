@@ -1,6 +1,6 @@
 # The Architecture of the LISA Science Analysis
 
-A Keck Institute for Space Studies workshop, January 16--19, 2018
+A W. M. Keck Institute for Space Studies workshop, January 16--19, 2018
 **Final report**, January 2019 
 
 * Rachel Akeson - California Institute of Technology
@@ -100,17 +100,13 @@ An executive summary, such as would be customary for a report such as this, coul
 
 In discussing **waveform accuracy**, it is useful to distinguish between the intrinsic error in the underlying *models* of physics [@10.1017/CBO9781139583961.009] [@10.1017/CBO9781139583961.011] (e.g., a numerical relativity simulation, or a post-Newtonian expansion of Einstein's field equations) and the error incurred in making these models available as *templates*: *hybridization* error when marrying analytical and numerical waveforms; *approximation* error when fitting phenomenological models to simulations; *representation* error when casting waveforms on reduced-order-modeling bases. (One speaks generally of *surrogates* to encompass waveforms that can be evaluated efficiently and that approximate more careful and expensive computations.)
 
-Physical-model errors are addressed by theoretical work; template errors by more careful and potentially costly computation. **Waveform accuracy requirements affect both the theoretical inputs and their data-analytic representations**, and they will depend strongly on the data-analysis *application* under consideration. A roughly accuracy-ranked list of applications (with the most demanding on top) would be
-
-1. testing general relativity;
-2. astrophysical parameter estimation;
-3. minimizing residuals after the hierarchical subtraction of loud signals;
-4. detection (which will be certainly satisfied when 2 and 3 are)
-
-We should target the application with the most stringent needs. However, how do we define **waveform accuracy requirements** formally for LISA? It is unclear that we have all the mathematical tools and criteria to pose this question profitably (although we have well-established foundations [@10.1103/PhysRevD.78.124020] [^accuracy]). 
-In space-project jargon, **what is the modeling and templating error budget for LISA?** Once we know, we can ask questions such as:
+Physical-model errors are addressed by theoretical work; template errors by more careful and potentially costly computation. **Waveform accuracy requirements affect both the theoretical inputs and their data-analytic representations**, and they will depend strongly on the sources under consideration. Ideally, we want the error budget to be dominated by instrument noise, and not by waveform limitations; this criterion remains the same for astrophysical parameter estimation, for anomaly identification in tests of general relativity, and for minimizing residuals after the subtraction of the loudest signals. For current (second-generation) ground-based GW observatories, the signal-to-noise ratio (SNR) for black-hole--binary mergers will be $\sim 100$ at design sensitivity. For LISA, the comparable number will be $\sim 10,000$. Since the required phase accuracy for matched filtering scales as $1/\mathrm{SNR}$, we need about a factor of 100 improvement in waveform accuracy from today. [^accuracy] No current numerical relativity code can achieve this accuracy, even extrapolating beyond exascale computers. For EMRIs and Galactic binaries the SNR is lower, and the accuracy requirement scales accordingly. (By contrast, detection rates would be not damaged only marginally by losses of accuracy of a few percent.) 
 
 [^accuracy]: A sufficient condition for the systematic error from mismodeling to be negligible compared to the random effects of noise is for the *mismatch* to be smaller than $D/(2 \, \mathrm{SNR}^2)$, where $D$ is the number of parameters in the waveform. See [@Chatziioannou:2016ezg].
+
+How do we define **waveform accuracy requirements** formally for LISA? It is unclear that we have all the mathematical tools and criteria to pose this question profitably (although we have well-established foundations [@10.1103/PhysRevD.78.124020]). 
+In space-project jargon, **what is the modeling and templating error budget for LISA?** Once we know, we can ask questions such as:
+
 
 * Are post-Newtonian (PN), effective-one-body (EOB), and numerical-relativistic (NR) binary models sufficiently accurate to extract all science from loud massive black-hole binary inspirals? E.g, are numerical-relativity simulations sufficient to capture the fine details of mergers? How *long* do they need so that the "handoff" from PN/EOB to numerical is sufficiently accurate?
 * What about the model representations as phenomenological (*Phenom*) or reduced-order-modeling (ROM) templates? Can these be improved at the cost of more computation, whether *online* during parameter estimation or in a preliminary stage?
@@ -396,6 +392,6 @@ Finally, we should honor the selfless commitment of so many talented individuals
 
 ## Acknowledgments
 
-The organizers and all study participants are deeply grateful to KISS Executive Directory Michelle Judd and to her amazing stuff for creating the perfect environment for insight, creativity, and collegiality. Deirdre Shoemaker acknowledges support from NSF award PHY1806580. Michele Vallisneri, Alvin Chua, Curt Cutler, and Chad Galley acknowledge support from the JPL RTD program. Part of this work was performed at the Jet Propulsion Laboratory, California Institute of Technology, under a contract with the National Aeronautics and Space Administration. Copyright 2019. Government sponsorship acknowledged.
+This work had its inception at the *Architecture of the LISA Science Analysis* study funded by the W. M. Keck Institute for Space Studies. The study organizers and all study participants are deeply grateful to KISS Executive Directory Michelle Judd and to her amazing staff for creating the perfect environment for insight, creativity, and collegiality. Deirdre Shoemaker acknowledges support from NSF award PHY1806580. Michele Vallisneri, Alvin Chua, Curt Cutler, and Chad Galley acknowledge support from the JPL RTD program. Part of this work was performed at the Jet Propulsion Laboratory, California Institute of Technology, under a contract with the National Aeronautics and Space Administration. Copyright 2019. Government sponsorship acknowledged.
 
 ## Bibliography
